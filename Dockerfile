@@ -19,6 +19,13 @@ RUN ln -fs /license/xl-release-license.lic /opt/xlr/server/conf/xl-release-licen
 COPY resources/supervisord.conf /etc/supervisord.conf
 COPY resources/xlr.conf /etc/supervisor/conf.d/
 
+RUN addgroup xl && adduser -D -H  -G xl xl
+RUN chown -R xl:xl /opt/xlr
+RUN chmod -R 777 /opt/xlr
+USER xl
+WORKDIR /opt/xlr
+
+
 CMD ["/usr/bin/supervisord"]
 
 EXPOSE 5516
