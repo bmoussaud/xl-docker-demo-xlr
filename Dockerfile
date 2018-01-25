@@ -19,6 +19,8 @@ RUN ln -fs /license/xl-release-license.lic /opt/xlr/server/conf/xl-release-licen
 COPY resources/supervisord.conf /etc/supervisord.conf
 COPY resources/xlr.conf /etc/supervisor/conf.d/
 
+ADD plugins/xlr-synchro-plugin-1.0.0.jar  /opt/xlr/server/plugins
+
 RUN addgroup xl && adduser -D -H  -G xl xl
 RUN chown -R xl:xl /opt/xlr
 RUN chmod -R 777 /opt/xlr
