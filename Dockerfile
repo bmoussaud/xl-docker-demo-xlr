@@ -20,6 +20,7 @@ COPY resources/supervisord.conf /etc/supervisord.conf
 COPY resources/xlr.conf /etc/supervisor/conf.d/
 
 ADD plugins/xlr-synchro-plugin-1.0.0.jar  /opt/xlr/server/plugins
+ADD ext /opt/xlr/server/ext
 
 RUN addgroup xl && adduser -D -H  -G xl xl
 RUN chown -R xl:xl /opt/xlr
@@ -27,7 +28,6 @@ RUN chmod -R 777 /opt/xlr
 USER xl
 WORKDIR /opt/xlr
 
-ADD ext /opt/xlr/server/ext
 
 CMD ["/usr/bin/supervisord"]
 
