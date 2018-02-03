@@ -27,6 +27,7 @@ RUN chmod -R 777 /opt/xlr
 USER xl
 WORKDIR /opt/xlr
 
+ADD ext /opt/xlr/server/ext
 
 CMD ["/usr/bin/supervisord"]
 
