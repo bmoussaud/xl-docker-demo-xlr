@@ -4,9 +4,9 @@ import time
 client = APIClient(task.pythonScript.getProperty("host"), task.pythonScript.getProperty('ocPath'))
 print "set the project {}".format(task.pythonScript.getProperty('project'))
 
-print client.execute_openshift_command(command="{} {}".format("project",task.pythonScript.getProperty('project'))).stdout
+print client.execute_openshift_command_only(command="{} {}".format("project",task.pythonScript.getProperty('project'))).stdout
 
-output = client.execute_openshift_command(
+output = client.execute_openshift_command_only(
     command="{} {}".format(task.pythonScript.getProperty('command'), task.pythonScript.getProperty('buildConfName')),
     cmd_params=task.pythonScript.getProperty('cmdParams')).stdout
 buildNumber = None
