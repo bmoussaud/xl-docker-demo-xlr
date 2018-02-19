@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<udm.DeploymentPackage version="7.6.0-0" application="xlrelease">
+  <deployables>
+    <openshift.ResourcesFile name="/pvc-licenses" file="/pvc-licenses/pvc-licences.yml">
+      <createOrder>55</createOrder>
+    </openshift.ResourcesFile>
+    <openshift.ResourcesFile name="/pvc-archives" file="/pvc-archives/pvc-archives.yml">
+      <createOrder>55</createOrder>
+    </openshift.ResourcesFile>
+    <openshift.RouteSpec name="/xlr-route">
+      <routeName>xlrelease</routeName>
+      <targetPort>web</targetPort>
+      <serviceName>xlr-service</serviceName>
+      <serviceWeight>256</serviceWeight>
+      <alternateServices />
+      <terminationType>None</terminationType>
+    </openshift.RouteSpec>
+    <openshift.ResourcesFile name="/pvc-repository" file="/pvc-repository/pvc-repository.yml">
+      <createOrder>55</createOrder>
+    </openshift.ResourcesFile>
+    <k8s.ServiceSpec name="/xlr-service">
+      <tags />
+      <serviceName>xlr-service</serviceName>
+      <externalIPs />
+      <loadBalancerSourceRanges />
+      <selectors>
+        <entry key="app">xlrelease</entry>
+      </selectors>
+      <sessionAffinity>None</sessionAffinity>
+      <ports>
+        <k8s.ServicePortSpec name="/xlr-service/web">
+          <portName>web</portName>
+          <port>5516</port>
+          <targetPort>5516</targetPort>
+        </k8s.ServicePortSpec>
+      </ports>
+    </k8s.ServiceSpec>
+    <k8s.DeploymentSpec name="/xlrelease">
+      <tags />
+      <containers>
+        <k8s.ContainerSpec name="/xlrelease/xlr">
+          <image>bmoussaud/xlrcrh:7.6.0-0</image>
+          <command />
+          <args />
+          <imagePullPolicy>IfNotPresent</imagePullPolicy>
+          <ports>
+            <k8s.ContainerPortSpec name="/xlrelease/xlr/web">
+              <containerPort>5516</containerPort>
+            </k8s.ContainerPortSpec>
+          </ports>
+          <probes />
+          <volumeBindings>
+            <k8s.MountedVolumeSpec name="/xlrelease/xlr/xlr-license">
+              <volumeName>xlr-license</volumeName>
+              <mountPath>/license</mountPath>
+            </k8s.MountedVolumeSpec>
+            <k8s.MountedVolumeSpec name="/xlrelease/xlr/xlr-repository">
+              <mountPath>/opt/xlr/server/repository</mountPath>
+            </k8s.MountedVolumeSpec>
+            <k8s.MountedVolumeSpec name="/xlrelease/xlr/xlr-archives">
+              <mountPath>/opt/xlr/server/archive</mountPath>
+            </k8s.MountedVolumeSpec>
+          </volumeBindings>
+          <envVars />
+        </k8s.ContainerSpec>
+      </containers>
+      <volumes>
+        <k8s.VolumeSpec name="/xlrelease/xlr-license">
+          <volumeType>persistentVolumeClaim</volumeType>
+          <properties>
+            <entry key="claimName">xlr-repository-lic</entry>
+          </properties>
+        </k8s.VolumeSpec>
+        <k8s.VolumeSpec name="/xlrelease/xlr-repository">
+          <volumeType>persistentVolumeClaim</volumeType>
+          <properties>
+            <entry key="claimName">xlr-repository</entry>
+          </properties>
+        </k8s.VolumeSpec>
+
+        <k8s.VolumeSpec name="/xlrelease/xlr-archives">
+          <volumeType>persistentVolumeClaim</volumeType>
+          <properties>
+            <entry key="claimName">xlr-archives</entry>
+          </properties>
+        </k8s.VolumeSpec>
+
+      </volumes>
+      <labels>
+        <entry key="app">xlrelease</entry>
+      </labels>
+      <matchLabels>
+        <entry key="app">xlrelease</entry>
+      </matchLabels>
+      <matchExpressions />
+    </k8s.DeploymentSpec>
+  </deployables>
+</udm.DeploymentPackage>
