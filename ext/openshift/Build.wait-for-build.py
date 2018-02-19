@@ -12,7 +12,7 @@ buildNumber = task.pythonScript.getProperty('buildNumber')
 #print "BUILD STATUS is {}".format(buildStatus)
 output = output.replace('\t', '').replace(' ', '')
 #print output
-masterUrl = "https://192.168.64.3:8443"
+masterUrl = "https://192.168.64.6:8443"
 #masterUrl = client.execute_openshift_command_only("version | grep -i server").stdout.split(' ')[1].strip()
 
 consoleURL = "{}/console/project/{}/browse/builds/{}/{}?tab=logs".format(
