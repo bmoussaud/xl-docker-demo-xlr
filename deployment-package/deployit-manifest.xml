@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<udm.DeploymentPackage version="7.6.0-0" application="xlrelease">
+<udm.DeploymentPackage version="7.6.0-1" application="xlrelease">
   <deployables>
-    <openshift.ResourcesFile name="/pvc-licenses" file="/pvc-licenses/pvc-licences.yml">
+    <openshift.ResourcesFile name="/xlr-pvc-licenses" file="/pvc-licenses/pvc-licences.yml">
       <createOrder>55</createOrder>
     </openshift.ResourcesFile>
-    <openshift.ResourcesFile name="/pvc-archives" file="/pvc-archives/pvc-archives.yml">
+    <openshift.ResourcesFile name="/xlr-pvc-archives" file="/pvc-archives/pvc-archives.yml">
       <createOrder>55</createOrder>
     </openshift.ResourcesFile>
     <openshift.RouteSpec name="/xlr-route">
@@ -15,7 +15,7 @@
       <alternateServices />
       <terminationType>None</terminationType>
     </openshift.RouteSpec>
-    <openshift.ResourcesFile name="/pvc-repository" file="/pvc-repository/pvc-repository.yml">
+    <openshift.ResourcesFile name="/xlr-pvc-repository" file="/pvc-repository/pvc-repository.yml">
       <createOrder>55</createOrder>
     </openshift.ResourcesFile>
     <k8s.ServiceSpec name="/xlr-service">

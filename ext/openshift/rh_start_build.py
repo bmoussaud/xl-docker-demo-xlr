@@ -6,9 +6,17 @@ print "set the project {}".format(task.pythonScript.getProperty('project'))
 
 print client.execute_openshift_command_only(command="{} {}".format("project",task.pythonScript.getProperty('project'))).stdout
 
-output = client.execute_openshift_command_only(
+print "execute build {}".format(task.pythonScript.getProperty('buildConfName'))
+
+execb = client.execute_openshift_command_only(
     command="{} {}".format(task.pythonScript.getProperty('command'), task.pythonScript.getProperty('buildConfName')),
-    cmd_params=task.pythonScript.getProperty('cmdParams')).stdout
+    cmd_params=task.pythonScript.getProperty('cmdParams'))
+
+print execb
+print execb.stdout
+print execb.stderr
+
+output = execb.stdout
 buildNumber = None
 for line in output.split('\n'):
     print('-{}'.format(line))

@@ -1,4 +1,4 @@
-FROM openjdk:jre-alpine
+FROM openjdk:8-jre
 MAINTAINER XebiaLabs "info@xebialabs.com"
 
 RUN apk --no-cache add supervisor wget
@@ -21,6 +21,13 @@ COPY resources/xlr.conf /etc/supervisor/conf.d/
 
 ADD plugins/xlr-synchro-plugin-1.0.0.jar  /opt/xlr/server/plugins
 ADD ext /opt/xlr/server/ext
+
+
+RUN wget --progress=dot:giga -O /tmp/oc.tgz https://github.com/openshift/origin/releases/download/v3.7.1/openshift-origin-client-tools-v3.7.1-ab0f056-linux-64bit.tar.gz && \
+    cd /tmp && \
+    tar xvfz /tmp/oc.tgz  && \
+    cp /tmp/openshift-origin-client-tools-v*/oc /usr/local/bin/oc && \
+    rm -rf /tmp/oc.tgz
 
 RUN addgroup xl && adduser -D -H  -G xl xl
 RUN chown -R xl:xl /opt/xlr
