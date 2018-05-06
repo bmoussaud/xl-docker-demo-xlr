@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:jre-alpine
 MAINTAINER XebiaLabs "info@xebialabs.com"
 
 RUN apk --no-cache add supervisor wget
